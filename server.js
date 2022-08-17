@@ -7,6 +7,8 @@ const cors = require("cors");
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json);
 
+require("./connection");
+
 const server = require("http").createServer(app);
 const PORT = 5001;
 
@@ -20,3 +22,6 @@ const io = require("socket.io")(server, {
 server.listen(PORT, () => {
   console.log("server is running to port", PORT);
 });
+
+//PORT=5698
+//MONGO_URI="mongodb+srv://chat:chat2001@cluster0.ndkujtw.mongodb.net/?retryWrites=true&w=majority"
