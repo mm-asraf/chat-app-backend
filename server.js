@@ -1,16 +1,19 @@
 const express = require("express");
 const app = express();
-
+const userRoutes = require("./routes/userRoutes");
 const rooms = ["general", "tech", "finance", "crypto"];
 const cors = require("cors");
+const connectDB = require("./config/db");
 
-app.use(express.urlencoded({ extended: false }));
-app.use(express.json);
-
-require("./connection");
+connectDB();
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+app.use(cors());
 
 const server = require("http").createServer(app);
-const PORT = 5001;
+const PORT = 3002;
+
+app.use("/users", userRoutes);
 
 const io = require("socket.io")(server, {
   cors: {
