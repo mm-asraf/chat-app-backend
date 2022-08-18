@@ -6,6 +6,12 @@ const User = require("./models/User");
 const rooms = ["general", "tech", "finance", "crypto"];
 const cors = require("cors");
 const connectDB = require("./config/db");
+const dotenv = require("dotenv");
+const path = require("path");
+
+//config
+//load config
+dotenv.config({ path: path.resolve(__dirname, "./config/config.env") });
 
 connectDB();
 app.use(express.urlencoded({ extended: true }));
@@ -13,7 +19,7 @@ app.use(express.json());
 app.use(cors());
 
 const server = require("http").createServer(app);
-const PORT = 3002;
+const PORT = process.env.PORT || 3002;
 
 app.use("/users", userRoutes);
 
@@ -99,6 +105,3 @@ app.get("/rooms", (req, res) => {
 server.listen(PORT, () => {
   console.log("server is running to port", PORT);
 });
-
-//PORT=5698
-//MONGO_URI="mongodb+srv://chat:chat2001@cluster0.ndkujtw.mongodb.net/?retryWrites=true&w=majority"
