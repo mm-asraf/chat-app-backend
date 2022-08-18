@@ -22,15 +22,13 @@ const PORT = process.env.PORT || 3002;
 
 app.use("/users", userRoutes);
 
-// const io = require("socket.io")(server, {
-//   cors: {
-//     origin: "http://localhost:3000",
-//     credentials: true,
-//     methods: ["GET", "POST"],
-//   },
-// });
-
-const io = require("socket.io")(server);
+const io = require("socket.io")(server, {
+  cors: {
+    origin: "https://chat-app-mm-asraf.vercel.app",
+    credentials: true,
+    methods: ["GET", "POST"],
+  },
+});
 
 async function getLastMessagesFromRoom(room) {
   let roomMessages = await Message.aggregate([
