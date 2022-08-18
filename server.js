@@ -9,7 +9,6 @@ const connectDB = require("./config/db");
 const dotenv = require("dotenv");
 const path = require("path");
 
-//config
 //load config
 dotenv.config({ path: path.resolve(__dirname, "./config/config.env") });
 
@@ -23,12 +22,15 @@ const PORT = process.env.PORT || 3002;
 
 app.use("/users", userRoutes);
 
-const io = require("socket.io")(server, {
-  cors: {
-    origin: "http://localhost:3000",
-    methods: ["GET", "POST"],
-  },
-});
+// const io = require("socket.io")(server, {
+//   cors: {
+//     origin: "http://localhost:3000",
+//     credentials: true,
+//     methods: ["GET", "POST"],
+//   },
+// });
+
+const io = require("socket.io")(server);
 
 async function getLastMessagesFromRoom(room) {
   let roomMessages = await Message.aggregate([
